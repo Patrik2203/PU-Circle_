@@ -63,15 +63,15 @@ class _AdminDashboardState extends State<AdminDashboard> {
   Future<void> _loadStatistics() async {
     // Get total users
     final usersSnapshot = await _firestore.collection('users').count().get();
-    _totalUsers = usersSnapshot.count;
+    _totalUsers = usersSnapshot.count!;
 
     // Get total posts
     final postsSnapshot = await _firestore.collection('posts').count().get();
-    _totalPosts = postsSnapshot.count;
+    _totalPosts = postsSnapshot.count!;
 
     // Get total matches
     final matchesSnapshot = await _firestore.collection('matches').count().get();
-    _totalMatches = matchesSnapshot.count;
+    _totalMatches = matchesSnapshot.count!;
 
     // Get pending reports
     final reportsSnapshot = await _firestore
@@ -79,7 +79,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
         .where('status', isEqualTo: 'pending')
         .count()
         .get();
-    _pendingReports = reportsSnapshot.count;
+    _pendingReports = reportsSnapshot.count!;
   }
 
   @override
