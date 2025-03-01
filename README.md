@@ -1,112 +1,157 @@
-# pu_circle
+# PU Circle - Connecting Students at PU
 
-A# PU Circle - Social Networking App
+## Overview
+**PU Circle** is a Flutter-based mobile application designed for students at **PU (Presumed University)** to connect, socialize, and build friendships. Inspired by the best aspects of Instagram and Tinder, PU Circle offers a dynamic and engaging platform where students can interact, share their moments, and find new friends with shared interests.
 
-## 📌 Project Overview
-PU Circle is a social networking app built using **Flutter**. It provides features such as user authentication, post creation, messaging, match-making, and an admin dashboard for content moderation.
+## Features
+### **Authentication & User Setup**
+- **Login & Signup with Firebase Authentication**
+- **Email Verification** during signup
+- **Profile Creation**: Users can upload profile pictures, set a bio, and specify their interests
+- **Gender Selection**: Male/Female
+- **Relationship Status (Single/Not Single)**: Disclaimer - This is private and not shown publicly
 
-## 📂 Project Structure
+### **Instagram-Like Features**
+- Users can **create posts** (photos/videos) and interact via **likes**
+- **Home Screen** displays posts from users you follow
+- **Follow/Unfollow Functionality**
+- View **followers and following lists**
+
+### **Tinder-Like Matchmaking Feature**
+- **Match Section** helps students find new friends
+- **Swiping System**:
+   - Swipe **right** to like
+   - Swipe **left** to pass
+   - If both users swipe right, it's a **match**
+- **Heart Animation** appears when a match is found
+- Matched users can **start conversations** via an in-app messaging feature
+- **Notification System**: Users get notified of matches and interactions
+- **Profile Search**: Find and view other profiles easily
+
+### **Messaging System**
+- **Chat System** for matched users
+- Messages are stored securely in Firebase
+- **Predefined Message Option**: "Wanna meet at PU Circle or on a tea post?" - users can tap to send
+- Users can directly **visit profiles and start a chat**
+
+### **Admin Panel**
+- **Monitor and moderate** user activity
+- **Delete posts, users, or messages** if necessary
+- **Manually match users** (with a notification saying the algorithm matched them)
+- **Prevent Malpractice** and maintain a safe community
+- **Admin Login via Passkey**: '79770051419136567648'
+
+### **Additional Features**
+- **Photo/Video Uploads** with storage optimization (compressed files to save space)
+- **Logout and Report Profile Option**
+- **Loading Animations** to ensure smooth user experience while fetching data
+- **Attractive UI/UX** with a never-seen-before, smooth, and engaging design
+
+
+## 📁 Folder Structure
 
 ```
-lib/
-├── main.dart
-├── firebase/
-│   ├── auth_service.dart
-│   ├── storage_service.dart
-│   ├── firestore_service.dart
-│   └── notification_service.dart
-├── screens/
-│   ├── auth/
-│   │   ├── login_screen.dart
-│   │   ├── signup_screen.dart
-│   │   └── admin_login_screen.dart
-│   ├── home/
-│   │   ├── home_screen.dart
-│   │   ├── post_detail_screen.dart
-│   │   └── create_post_screen.dart
-│   ├── match/
-│   │   ├── match_screen.dart
-│   │   └── match_detail_screen.dart
-│   ├── profile/
-│   │   ├── profile_screen.dart
-│   │   ├── edit_profile_screen.dart
-│   │   └── followers_screen.dart
-│   ├── messaging/
-│   │   ├── chat_list_screen.dart
-│   │   └── chat_screen.dart
-│   ├── notifications/
-│   │   └── notification_screen.dart
-│   └── admin/
-│       ├── admin_dashboard.dart
-│       ├── user_management.dart
-│       └── content_moderation.dart
-├── utils/
-│   ├── colors.dart
-│   ├── constants.dart
-│   ├── theme.dart
-│   └── helpers.dart
-├── models/
+lib
+│── firebase/
+│   │── admin_service.dart
+│   │── auth_service.dart
+│   │── firestore_service.dart
+│   │── match_service.dart
+│   │── messaging_service.dart
+│   │── notification_service.dart
+│   │── storage_service.dart
+│
+│── models/
 │   ├── user_model.dart
 │   ├── post_model.dart
 │   ├── match_model.dart
 │   ├── chat_model.dart
 │   └── notification_model.dart
-└── widgets/
-    ├── common_widgets.dart
-    ├── post_widget.dart
-    ├── profile_card_widget.dart
-    └── chat_bubble_widget.dart
+│
+│── screens/
+│   │── admin/
+│   │   │── admin_dashboard.dart
+│   │   │── content_moderation.dart
+│   │   │── user_management.dart
+│   │
+│   │── auth/
+│   │   │── admin_login_screen.dart
+│   │   │── login_screen.dart
+│   │   │── signup_screen.dart
+│   │
+│   │── home/
+│   │   │── create_post_screen.dart
+│   │   │── home_screen.dart
+│   │   │── post_detail_screen.dart
+│   │
+│   │── match/
+│   │   │── match_detail_screen.dart
+│   │   │── match_screen.dart
+│   │
+│   │── messaging/
+│   │   │── chat_list_screen.dart
+│   │   │── chat_screen.dart
+│   │
+│   │── notifications/
+│   │   │── notification_screen.dart
+│   │
+│   │── profile/
+│   │   │── edit_profile_screen.dart
+│   │   │── followers_screen.dart
+│   │   │── profile_screen.dart
+│
+│── utils/
+│   │── colors.dart
+│   │── constants.dart
+│   │── helpers.dart
+│   │── theme.dart
+│
+│── widgets/
+│   │── chat_bubble_widget.dart
+│   │── common_widgets.dart
+│   │── post_widget.dart
+│   │── profile_card_widget.dart
+main.dart
 ```
 
-## 🔥 Features
-- **User Authentication** (Login, Signup, Admin Login)
-- **Post Creation & Details**
-- **Match-Making System**
-- **Profile Management**
-- **Messaging System (Chat)**
-- **Notifications**
-- **Admin Dashboard (User Management & Content Moderation)**
+## 🚀 Features
 
-## 🚀 Installation
+- **Firebase Integration**: Authentication, Firestore database, messaging, and notifications.
+- **Match System**: Includes screens for matching and match details.
+- **Messaging**: Chat system with a list of conversations and individual chat screens.
+- **Notifications**: Users receive and manage notifications for various actions.
+- **Profile Management**: Edit profile, follow users, and view profiles.
+- **Admin Panel**: Dashboard for content moderation and user management.
+- **Theming & Utilities**: Custom colors, themes, and helper functions.
+
+## 🛠️ Setup Instructions
+
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-repo/pu_circle.git
-   cd pu_circle
+   git clone <repository_url>
    ```
-2. Install dependencies:
+2. Navigate to the project directory:
+   ```sh
+   cd <project_folder>
+   ```
+3. Install dependencies:
    ```sh
    flutter pub get
    ```
-3. Set up Firebase:
-    - Add your `google-services.json` (Android) and `GoogleService-Info.plist` (iOS) inside the `android/app/` and `ios/` folders respectively.
-    - Run:
-      ```sh
-      cd ios
-      pod install
-      ```
-4. Run the app:
+4. Set up Firebase:
+   - Add `google-services.json` (Android) and `GoogleService-Info.plist` (iOS) to the respective directories.
+   - Enable Firebase Authentication, Firestore, and Cloud Messaging.
+5. Run the app:
    ```sh
    flutter run
    ```
 
-## 📜 Dependencies
-- **Firebase Authentication** - User login/signup
-- **Cloud Firestore** - Database for storing posts, messages, and user data
-- **Firebase Storage** - Storing media files
-- **Firebase Messaging** - Push notifications
-- **Provider/Riverpod** - State management (if applicable)
+## 📌 Contribution Guidelines
 
-## 🛠 Contribution
-1. Fork the repository.
-2. Create a new branch:
-   ```sh
-   git checkout -b feature-name
-   ```
-3. Make changes and commit:
-   ```sh
-   git commit -m "Added new feature"
-   ```
-4. Push and create a pull request.
+- Fork the repository and create a new branch for your changes.
+- Follow the coding style and use meaningful commit messages.
+- Submit a pull request with a detailed description of changes.
 
-## 📄 License
-This project is licensed under the MIT License.
+---
+
+Let me know if you need any further modifications! 🚀
