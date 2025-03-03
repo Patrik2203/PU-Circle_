@@ -329,4 +329,64 @@ class NotificationService {
       rethrow;
     }
   }
+
+
+// Stream for unread notification count
+  Stream<int> streamUnreadNotificationCount(String userId) {
+    return _firestore
+        .collection('notifications')
+        .where('receiverId', isEqualTo: userId)
+        .where('isRead', isEqualTo: false)
+        .snapshots()
+        .map((snapshot) => snapshot.docs.length);
+  }
+
+// Stream grouped notifications
+  Stream<Map<String, List<NotificationModel>>> streamGroupedNotifications(String userId) {
+    return streamUserNotifications(userId).map((notifications) {
+      Map<String, List<NotificationModel>> grouped = {
+        'today': [],
+        'earlier': [],
+      };
+
+      DateTime now = DateTime.now();
+      DateTime today = DateTime(now.year, now.month, now.day);
+
+      for (var notification in notifications) {
+        DateTime notificationDate = DateTime(
+          notification.timestamp.year,
+          notification.timestamp.month,
+          notification.timestamp.day,
+        );
+
+        if (notificationDate.isAtSameMomentAs(today)) {
+          grouped['today']!.add(notification);
+        } else {
+          grouped['earlier']!.add(notification);
+        }
+      }
+
+      return grouped;
+    });
+  }
+
+// Delete all notifications for a user
+  Future<void> deleteAllNotifications(String userId) async {
+    try {
+      QuerySnapshot receivedNotifications = await _firestore
+          .collection('notifications')
+          .where('receiverId', isEqualTo: userId)
+          .get();
+
+      WriteBatch batch = _firestore.batch();
+      for (var doc in receivedNotifications.docs) {
+        batch.delete(doc.reference);
+      }
+      await batch.commit();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+
 }
