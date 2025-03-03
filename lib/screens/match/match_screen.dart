@@ -250,7 +250,10 @@ class _MatchScreenState extends State<MatchScreen> with SingleTickerProviderStat
                           color: Colors.transparent,
                           child: ProfileCardWidget(
                             user: user,
-                            isDragging: true,
+                            onLike: () {},
+                            onDislike: () {},
+                            onProfileTap: () {},
+                            isMatch: false,
                           ),
                         ),
                         childWhenDragging: const SizedBox.shrink(),
@@ -266,9 +269,10 @@ class _MatchScreenState extends State<MatchScreen> with SingleTickerProviderStat
                         },
                         child: ProfileCardWidget(
                           user: user,
-                          showButtons: isTop,
+                          showActions: isTop,
                           onLike: () => _handleSwipe(user, true),
-                          onPass: () => _handleSwipe(user, false),
+                          onDislike: () => _handleSwipe(user, false),
+                          onProfileTap: () {}, // Add this missing required parameter
                         ),
                       ),
                     ),

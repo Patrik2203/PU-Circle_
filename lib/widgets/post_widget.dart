@@ -60,7 +60,7 @@ class _PostWidgetState extends State<PostWidget>
   }
 
   Future<void> _checkIfLiked() async {
-    final currentUserId = await _firestoreService.getCurrentUserId();
+    final currentUserId = await _firestoreService.currentUserId!;
     if (mounted) {
       setState(() {
         _isLiked = widget.post.likes.contains(currentUserId);
@@ -69,7 +69,7 @@ class _PostWidgetState extends State<PostWidget>
   }
 
   Future<void> _toggleLike() async {
-    final currentUserId = await _firestoreService.getCurrentUserId();
+    final currentUserId = await _firestoreService.currentUserId!;
 
     if (_isLiked) {
       // Unlike post
@@ -115,7 +115,7 @@ class _PostWidgetState extends State<PostWidget>
         context,
         MaterialPageRoute(
           builder: (context) => PostDetailScreen(
-            postId: widget.post.id,
+            post: widget.post,
           ),
         ),
       );

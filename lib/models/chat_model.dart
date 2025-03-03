@@ -43,6 +43,7 @@ class MessageModel {
   final String? mediaUrl;
   final DateTime timestamp;
   final bool isRead;
+  final bool isPreDefined; // Add this line
 
   MessageModel({
     required this.messageId,
@@ -51,6 +52,7 @@ class MessageModel {
     this.mediaUrl,
     required this.timestamp,
     required this.isRead,
+    this.isPreDefined = false, // Add this with a default value
   });
 
   factory MessageModel.fromMap(Map<String, dynamic> map) {
@@ -61,6 +63,7 @@ class MessageModel {
       mediaUrl: map['mediaUrl'],
       timestamp: (map['timestamp'] as Timestamp?)?.toDate() ?? DateTime.now(),
       isRead: map['isRead'] ?? false,
+      isPreDefined: map['isPreDefined'] ?? false, // Add this
     );
   }
 
@@ -72,6 +75,7 @@ class MessageModel {
       'mediaUrl': mediaUrl,
       'timestamp': timestamp,
       'isRead': isRead,
+      'isPreDefined': isPreDefined, // Add this
     };
   }
 }

@@ -22,6 +22,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Map<String, UserModel> _postOwners = {};
   final AuthService _authService = AuthService();
   final FirestoreService _firestoreService = FirestoreService();
   int _currentIndex = 0;
@@ -74,18 +75,24 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _loadPosts() async {
     try {
-      // Get list of users the current user follows
-      final followingUsers = await _firestoreService.getFollowing(_currentUser.uid);
-
-      // Add current user to see their own posts
-      followingUsers.add(_currentUser.uid as UserModel);
-
       // Get posts from following users
       final posts = await _firestoreService.getHomeFeedPosts(_currentUser.uid);
+
+      // Create a map of post owners
+      Map<String, UserModel> postOwners = {};
+      for (var post in posts) {
+        if (!postOwners.containsKey(post.userId)) {
+          final userData = await _firestoreService.getUserData(post.userId);
+          if (userData != null) {
+            postOwners[post.userId] = userData;
+          }
+        }
+      }
 
       if (mounted) {
         setState(() {
           _posts = posts;
+          _postOwners = postOwners;
         });
       }
     } catch (e) {
@@ -158,10 +165,11 @@ class _HomeScreenState extends State<HomeScreen> {
         itemCount: _posts.length,
         itemBuilder: (context, index) {
           final post = _posts[index];
+          final postOwner = _postOwners[post.userId] ?? _currentUser;
           return PostWidget(
             post: post,
-            currentUserId: _currentUser.uid,
-            onPostUpdated: _refreshData,
+            postOwner: postOwner,
+            onRefresh: _refreshData,
           );
         },
       ),

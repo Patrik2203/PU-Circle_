@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
+import '../../firebase/auth_service.dart';
+import '../../firebase/firestore_service.dart';
 import '../../firebase/notification_service.dart';
 import '../../models/notification_model.dart';
 import '../../models/user_model.dart';
@@ -109,26 +111,34 @@ class _NotificationScreenState extends State<NotificationScreen> {
       case 'like':
       // Navigate to post detail
         if (notification.postId != null && mounted) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PostDetailScreen(postId: notification.postId!),
-            ),
-          );
+          // Fetch full post data first
+          final post = await FirestoreService().getPost(notification.postId!);
+          if (post != null) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PostDetailScreen(post: post), // Pass PostModel
+              ),
+            );
+          }
         }
         break;
       case 'match':
       case 'algorithmMatch':
       // Navigate to match detail
-        if (notification.matchId != null && mounted) {
+      if (notification.matchId != null && mounted) {
+        // Fetch user data first
+        final user = await AuthService().getUserData(notification.matchId!);
+        if (user != null) {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => MatchDetailScreen(matchId: notification.matchId!),
+              builder: (context) => MatchDetailScreen(matchedUser: user), // Pass UserModel
             ),
           );
         }
-        break;
+      }
+      break;
       case 'message':
       // Already handled by navigation to chat from message notification
         break;

@@ -193,4 +193,32 @@ class MessagingService {
       rethrow;
     }
   }
+
+  // Add this method to generate or retrieve a chat ID for two users
+  Future<String?> getChatIdForUsers(String userId1, String userId2) async {
+    try {
+      // Sort the user IDs to ensure consistency
+      final List<String> userIds = [userId1, userId2]..sort();
+
+      // Create a unique chat ID based on the sorted user IDs
+      final String chatId = 'chat_${userIds[0]}_${userIds[1]}';
+
+      // Check if the chat already exists in Firestore
+      final chatDoc = await _firestore.collection('chats').doc(chatId).get();
+
+      if (!chatDoc.exists) {
+        // If the chat doesn't exist, create a new chat document
+        await _firestore.collection('chats').doc(chatId).set({
+          'participants': userIds,
+          'lastMessage': '',
+          'lastMessageTimestamp': FieldValue.serverTimestamp(),
+          'lastMessageSenderId': '',
+        });
+      }
+
+      return chatId;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

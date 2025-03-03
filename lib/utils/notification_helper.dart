@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../firebase/auth_service.dart';
+import '../firebase/firestore_service.dart';
+import '../firebase/messaging_service.dart';
 import '../models/notification_model.dart';
 import '../firebase/notification_service.dart';
 import '../screens/profile/profile_screen.dart';
@@ -59,30 +63,50 @@ class NotificationHelper {
     );
   }
 
-  static void _navigateToPost(BuildContext context, String postId) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => PostDetailScreen(postId: postId),
-      ),
-    );
+  static Future<void> _navigateToPost(BuildContext context, String postId) async {
+    // First fetch the post data
+    final post = await FirestoreService().getPost(postId);
+    if (post != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PostDetailScreen(post: post),
+        ),
+      );
+    }
   }
 
-  static void _navigateToMatch(BuildContext context, String matchId) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => MatchDetailScreen(matchId: matchId),
-      ),
-    );
+  static Future<void> _navigateToMatch(BuildContext context, String matchId) async {
+    // First fetch the matched user
+    final matchedUser = await AuthService().getUserData(matchId);
+    if (matchedUser != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MatchDetailScreen(matchedUser: matchedUser),
+        ),
+      );
+    }
   }
 
-  static void _navigateToChat(BuildContext context, String userId) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ChatScreen(receiverId: userId),
-      ),
+  static Future<void> _navigateToChat(BuildContext context, String userId) async {
+    // First fetch the user and find/create chatId
+    final otherUser = await AuthService().getUserData(userId);
+    final chatId = await MessagingService().getChatIdForUsers(
+        FirebaseAuth.instance.currentUser!.uid,
+        userId
     );
+
+    if (otherUser != null && chatId != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ChatScreen(
+            chatId: chatId,
+            otherUser: otherUser,
+          ),
+        ),
+      );
+    }
   }
 }

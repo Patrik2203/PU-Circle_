@@ -4,7 +4,7 @@ import '../utils/constants.dart';
 import '../models/chat_model.dart';
 
 class ChatBubble extends StatelessWidget {
-  final ChatMessage message;
+  final MessageModel message;
   final bool isMe;
   final bool showTime;
 
@@ -54,7 +54,7 @@ class ChatBubble extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  message.text,
+                  message.content,
                   style: TextStyle(
                     color: isMe ? Colors.white : Colors.black87,
                     fontSize: 16,
