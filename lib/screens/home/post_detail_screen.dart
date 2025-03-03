@@ -110,14 +110,15 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
       });
 
       // Update like status in Firestore
-      await _firestoreService.togglePostLike(
-        postId: _post.id,
-        userId: _currentUserId,
-        isLiked: newLikeStatus,
-      );
+      if (newLikeStatus) {
+        await _firestoreService.likePost(_post.postId, _currentUserId);
+      } else {
+        await _firestoreService.unlikePost(_post.postId, _currentUserId);
+      }
 
-      // Refresh post data
-      final updatedPost = await _firestoreService.getPost(_post.id);
+      // Fetch updated post data
+      final updatedPost = await _firestoreService.getPost(_post.postId);
+
       if (updatedPost != null && mounted) {
         setState(() {
           _post = updatedPost;
@@ -135,7 +136,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
 
   Future<void> _deletePost() async {
     try {
-      await _firestoreService.deletePost(_post.id);
+      await _firestoreService.deletePost(_post.postId);
 
       // Call callback to refresh parent screen
       widget.onPostUpdated?.call();
@@ -279,7 +280,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => ProfileScreen(
-                        userId: _postUser!.id,
+                        userId: _postUser!.uid,
                       ),
                     ),
                   );
@@ -299,7 +300,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => ProfileScreen(
-                        userId: _postUser!.id,
+                        userId: _postUser!.uid,
                       ),
                     ),
                   );

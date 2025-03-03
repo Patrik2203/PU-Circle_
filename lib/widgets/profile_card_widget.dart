@@ -1,5 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image';
 import '../models/user_model.dart';
 import '../utils/colors.dart';
 
@@ -12,14 +12,14 @@ class ProfileCardWidget extends StatelessWidget {
   final bool isMatch;
 
   const ProfileCardWidget({
-    Key? key,
+    super.key,
     required this.user,
     required this.onLike,
     required this.onDislike,
     required this.onProfileTap,
     this.showActions = true,
     this.isMatch = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +45,13 @@ class ProfileCardWidget extends StatelessWidget {
               GestureDetector(
                 onTap: onProfileTap,
                 child: Hero(
-                  tag: 'profile_${user.id}',
+                  tag: 'profile_${user.uid}',
                   child: SizedBox(
                     width: double.infinity,
                     height: double.infinity,
-                    child: user.profilePicUrl != null
+                    child: user.profileImageUrl != null
                         ? CachedNetworkImage(
-                            imageUrl: user.profilePicUrl!,
+                            imageUrl: user.profileImageUrl!,
                             fit: BoxFit.cover,
                             placeholder: (context, url) => Container(
                               color: AppColors.primaryLight.withOpacity(0.1),
@@ -425,8 +425,8 @@ class _MatchAnimationWidgetState extends State<MatchAnimationWidget>
                 opacity: _fadeAnimation,
                 child: CircleAvatar(
                   radius: 60.0,
-                  backgroundImage: widget.matchedUser.profilePicUrl != null
-                      ? NetworkImage(widget.matchedUser.profilePicUrl!)
+                  backgroundImage: widget.matchedUser.profileImageUrl != null
+                      ? NetworkImage(widget.matchedUser.profileImageUrl!)
                       : const AssetImage('assets/images/default_profile.png')
                           as ImageProvider,
                 ),

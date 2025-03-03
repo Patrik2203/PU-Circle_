@@ -149,6 +149,27 @@ class FirestoreService {
     }
   }
 
+//The getPost method fetches a specific post from Firestore using its postId.
+  Future<PostModel?> getPost(String postId) async {
+    try {
+      // Fetch the post document from Firestore
+      final doc = await _firestore.collection('posts').doc(postId).get();
+
+      // Check if the document exists
+      if (!doc.exists) return null;
+
+      // Convert Firestore data to a PostModel
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      data['postId'] = doc.id; // Ensure postId is included in the data
+
+      return PostModel.fromMap(data);
+    } catch (e) {
+      print('Error fetching post: $e');
+      return null;
+    }
+  }
+
+
   // Update user profile
   Future<void> updateUserProfile({
     required String userId,

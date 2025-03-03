@@ -11,6 +11,7 @@ class UserModel {
   final bool isAdmin;
   final List<String> followers;
   final List<String> following;
+  final List<String> interests; // ✅ Add this field
   final DateTime createdAt;
 
   UserModel({
@@ -24,6 +25,7 @@ class UserModel {
     required this.isAdmin,
     required this.followers,
     required this.following,
+    required this.interests, // ✅ Add this field
     required this.createdAt,
   });
 
@@ -39,6 +41,7 @@ class UserModel {
       isAdmin: map['isAdmin'] ?? false,
       followers: List<String>.from(map['followers'] ?? []),
       following: List<String>.from(map['following'] ?? []),
+      interests: List<String>.from(map['interests'] ?? []), // ✅ Add this field
       createdAt: (map['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
     );
   }
@@ -55,6 +58,7 @@ class UserModel {
       'isAdmin': isAdmin,
       'followers': followers,
       'following': following,
+      'interests': interests, // ✅ Add this field
       'createdAt': createdAt,
     };
   }

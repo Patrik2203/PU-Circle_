@@ -159,10 +159,10 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           ? 'posts/videos/${currentUser.uid}_$timestamp.mp4'
           : 'posts/images/${currentUser.uid}_$timestamp.jpg';
 
-      final String mediaUrl = await _storageService.uploadFile(
-        _mediaFile!,
-        mediaPath,
-      );
+      final String mediaUrl = _isVideo
+          ? await _storageService.uploadPostVideo(_mediaFile!)
+          : await _storageService.uploadPostImage(_mediaFile!);
+
 
       // Create post in Firestore
       await _firestoreService.createPost(

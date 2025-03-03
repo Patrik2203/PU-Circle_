@@ -73,21 +73,26 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _loadPosts() async {
-    // Get list of users the current user follows
-    final followingUsers = await _firestoreService.getFollowingUsers(_currentUser.id);
+    try {
+      // Get list of users the current user follows
+      final followingUsers = await _firestoreService.getFollowing(_currentUser.uid);
 
-    // Add current user to see their own posts
-    followingUsers.add(_currentUser.id);
+      // Add current user to see their own posts
+      followingUsers.add(_currentUser.uid as UserModel);
 
-    // Get posts from following users
-    final posts = await _firestoreService.getPostsFromUsers(followingUsers);
+      // Get posts from following users
+      final posts = await _firestoreService.getHomeFeedPosts(_currentUser.uid);
 
-    if (mounted) {
-      setState(() {
-        _posts = posts;
-      });
+      if (mounted) {
+        setState(() {
+          _posts = posts;
+        });
+      }
+    } catch (e) {
+      print("Error loading posts: $e");
     }
   }
+
 
   Future<void> _refreshData() async {
     await _loadPosts();
@@ -155,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
           final post = _posts[index];
           return PostWidget(
             post: post,
-            currentUserId: _currentUser.id,
+            currentUserId: _currentUser.uid,
             onPostUpdated: _refreshData,
           );
         },
@@ -170,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
       const MatchScreen(),
       const SizedBox(), // Placeholder for FAB
       const ChatListScreen(),
-      ProfileScreen(userId: _currentUser.id),
+      ProfileScreen(userId: _currentUser.uid),
     ];
 
     return Scaffold(

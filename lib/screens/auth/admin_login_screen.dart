@@ -53,7 +53,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
       }
 
       final userData = await _authService.getUserData(currentUser.uid);
-      if (userData == null || userData.role != 'admin') {
+      if (userData == null || userData.isAdmin) {
         // Log out if not admin
         await _authService.logout();
         throw Exception('You do not have admin privileges');
@@ -89,7 +89,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Admin Login'),
-        backgroundColor: AppColors.secondaryColor,
+        backgroundColor: AppColors.adminSecondary,
       ),
       body: SafeArea(
         child: Container(
@@ -106,7 +106,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.secondaryColor,
+                  color: AppColors.adminSecondary,
                 ),
               ),
               const SizedBox(height: 10),
@@ -161,7 +161,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(4)),
-                    color: AppColors.secondaryColor,
+                    color: AppColors.adminSecondary,
                   ),
                   child: _isLoading
                       ? LoadingAnimationWidget.staggeredDotsWave(

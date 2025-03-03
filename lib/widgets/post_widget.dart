@@ -73,7 +73,7 @@ class _PostWidgetState extends State<PostWidget>
 
     if (_isLiked) {
       // Unlike post
-      await _firestoreService.unlikePost(widget.post.id, currentUserId);
+      await _firestoreService.unlikePost(widget.post.userId, currentUserId);
       if (mounted) {
         setState(() {
           _isLiked = false;
@@ -82,7 +82,7 @@ class _PostWidgetState extends State<PostWidget>
       }
     } else {
       // Like post
-      await _firestoreService.likePost(widget.post.id, currentUserId);
+      await _firestoreService.likePost(widget.post.userId, currentUserId);
       if (mounted) {
         setState(() {
           _isLiked = true;
@@ -104,7 +104,7 @@ class _PostWidgetState extends State<PostWidget>
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ProfileScreen(userId: widget.postOwner.id),
+        builder: (context) => ProfileScreen(userId: widget.postOwner.uid),
       ),
     );
   }
@@ -138,8 +138,8 @@ class _PostWidgetState extends State<PostWidget>
             leading: GestureDetector(
               onTap: () => _navigateToProfile(context),
               child: CircleAvatar(
-                backgroundImage: widget.postOwner.profilePicUrl != null
-                    ? NetworkImage(widget.postOwner.profilePicUrl!)
+                backgroundImage: widget.postOwner.profileImageUrl != null
+                    ? NetworkImage(widget.postOwner.profileImageUrl!)
                     : const AssetImage('assets/images/default_profile.png')
                         as ImageProvider,
               ),
@@ -212,7 +212,7 @@ class _PostWidgetState extends State<PostWidget>
               width: double.infinity,
               child: widget.post.mediaUrl != null
                   ? Hero(
-                      tag: 'post_image_${widget.post.id}',
+                      tag: 'post_image_${widget.post.postId}',
                       child: Image.network(
                         widget.post.mediaUrl!,
                         fit: BoxFit.cover,

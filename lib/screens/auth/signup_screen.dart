@@ -111,7 +111,7 @@ class _SignupScreenState extends State<SignupScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Create Account'),
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: AppColors.primary,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -129,11 +129,11 @@ class _SignupScreenState extends State<SignupScreen> {
                   )
                       : const CircleAvatar(
                     radius: 64,
-                    backgroundColor: AppColors.lightGrey,
+                    backgroundColor: AppColors.textLight,
                     child: Icon(
                       Icons.person,
                       size: 64,
-                      color: Colors.white,
+                      color: AppColors.textPrimary,
                     ),
                   ),
                   Positioned(
@@ -143,7 +143,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       onPressed: _selectImage,
                       icon: const Icon(
                         Icons.add_a_photo,
-                        color: AppColors.primaryColor,
+                        color: AppColors.primary,
                       ),
                     ),
                   ),
@@ -164,9 +164,12 @@ class _SignupScreenState extends State<SignupScreen> {
               // Email Input
               TextFormField(
                 controller: _emailController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: 'Email',
-                  border: OutlineInputBorder(),
+                  hintStyle: const TextStyle(color: AppColors.textSecondary),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: AppColors.primaryLight),
+                  ),
                 ),
                 keyboardType: TextInputType.emailAddress,
               ),
@@ -201,6 +204,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   Radio(
                     value: 'male',
                     groupValue: _selectedGender,
+                    activeColor: AppColors.accent,
                     onChanged: (value) {
                       setState(() {
                         _selectedGender = value.toString();
@@ -212,6 +216,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   Radio(
                     value: 'female',
                     groupValue: _selectedGender,
+                    activeColor: AppColors.accent,
                     onChanged: (value) {
                       setState(() {
                         _selectedGender = value.toString();
@@ -229,12 +234,12 @@ class _SignupScreenState extends State<SignupScreen> {
                   const Text('Single: ', style: TextStyle(fontSize: 16)),
                   Switch(
                     value: _isSingle,
+                    activeColor: AppColors.accentDark,
                     onChanged: (value) {
                       setState(() {
                         _isSingle = value;
                       });
                     },
-                    activeColor: AppColors.primaryColor,
                   ),
                   const Text('(Not shown publicly)'),
                 ],
@@ -250,17 +255,17 @@ class _SignupScreenState extends State<SignupScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(4)),
-                    color: AppColors.primaryColor,
+                    gradient: AppColors.primaryGradient,  // Apply gradient,
                   ),
                   child: _isLoading
                       ? LoadingAnimationWidget.staggeredDotsWave(
-                    color: Colors.white,
+                    color: AppColors.textOnPrimary,
                     size: 24,
                   )
                       : const Text(
                     'Sign up',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: AppColors.textOnPrimary,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -281,7 +286,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       "Log in",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: AppColors.primaryColor,
+                        color: AppColors.primary,
                       ),
                     ),
                   ),

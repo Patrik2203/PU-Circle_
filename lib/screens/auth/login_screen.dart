@@ -78,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: TextStyle(
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
-                  color: AppColors.primaryColor,
+                  color: AppColors.primary, // Fixed color reference
                 ),
               ),
               const SizedBox(height: 64),
@@ -114,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(4)),
-                    color: AppColors.primaryColor,
+                    color: AppColors.primary, // Fixed color reference
                   ),
                   child: _isLoading
                       ? LoadingAnimationWidget.staggeredDotsWave(
@@ -149,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       "Sign up",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: AppColors.primaryColor,
+                        color: AppColors.primary, // Fixed color reference
                       ),
                     ),
                   ),
@@ -169,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: const Text(
                   "Admin Login",
                   style: TextStyle(
-                    color: AppColors.secondaryColor,
+                    color: AppColors.accent, // Fixed color reference
                   ),
                 ),
               ),
