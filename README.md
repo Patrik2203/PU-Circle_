@@ -51,67 +51,71 @@
 ## 📁 Folder Structure
 
 ```
-lib
+lib/
 │── firebase/
-│   │── admin_service.dart
-│   │── auth_service.dart
-│   │── firestore_service.dart
-│   │── match_service.dart
-│   │── messaging_service.dart
-│   │── notification_service.dart
-│   │── storage_service.dart
+│   ├── admin_service.dart
+│   ├── auth_service.dart
+│   ├── firestore_service.dart
+│   ├── match_service.dart
+│   ├── messaging_service.dart
+│   ├── notification_service.dart
+│   ├── storage_service.dart
 │
 │── models/
-│   ├── user_model.dart
-│   ├── post_model.dart
-│   ├── match_model.dart
 │   ├── chat_model.dart
-│   └── notification_model.dart
+│   ├── match_model.dart
+│   ├── notification_model.dart
+│   ├── post_model.dart
+│   ├── user_model.dart
 │
 │── screens/
-│   │── admin/
-│   │   │── admin_dashboard.dart
-│   │   │── content_moderation.dart
-│   │   │── user_management.dart
+│   ├── admin/
+│   │   ├── admin_dashboard.dart
+│   │   ├── content_moderation.dart
+│   │   ├── user_management.dart
 │   │
-│   │── auth/
-│   │   │── admin_login_screen.dart
-│   │   │── login_screen.dart
-│   │   │── signup_screen.dart
+│   ├── auth/
+│   │   ├── admin_login_screen.dart
+│   │   ├── login_screen.dart
+│   │   ├── signup_screen.dart
 │   │
-│   │── home/
-│   │   │── create_post_screen.dart
-│   │   │── home_screen.dart
-│   │   │── post_detail_screen.dart
+│   ├── home/
+│   │   ├── create_post_screen.dart
+│   │   ├── home_screen.dart
+│   │   ├── post_detail_screen.dart
 │   │
-│   │── match/
-│   │   │── match_detail_screen.dart
-│   │   │── match_screen.dart
+│   ├── match/
+│   │   ├── match_detail_screen.dart
+│   │   ├── match_screen.dart
 │   │
-│   │── messaging/
-│   │   │── chat_list_screen.dart
-│   │   │── chat_screen.dart
+│   ├── messaging/
+│   │   ├── chat_list_screen.dart
+│   │   ├── chat_screen.dart
 │   │
-│   │── notifications/
-│   │   │── notification_screen.dart
+│   ├── notifications/
+│   │   ├── notification_screen.dart
 │   │
-│   │── profile/
-│   │   │── edit_profile_screen.dart
-│   │   │── followers_screen.dart
-│   │   │── profile_screen.dart
+│   ├── profile/
+│   │   ├── edit_profile_screen.dart
+│   │   ├── followers_screen.dart
+│   │   ├── profile_screen.dart
 │
 │── utils/
-│   │── colors.dart
-│   │── constants.dart
-│   │── helpers.dart
-│   │── theme.dart
+│   ├── colors.dart
+│   ├── constants.dart
+│   ├── helpers.dart
+│   ├── notification_helper.dart
+│   ├── theme.dart
 │
 │── widgets/
-│   │── chat_bubble_widget.dart
-│   │── common_widgets.dart
-│   │── post_widget.dart
-│   │── profile_card_widget.dart
-main.dart
+│   ├── chat_bubble_widget.dart
+│   ├── common_widgets.dart
+│   ├── notification_badge_widget.dart
+│   ├── notification_item_widget.dart
+│   ├── post_widget.dart
+│   ├── profile_card_widget.dart
+│
+│── main.dart
 ```
 
 ## 🚀 Features
