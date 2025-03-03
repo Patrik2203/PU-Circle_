@@ -75,7 +75,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         }
       }
     } catch (e) {
-      showSnackBar(context, 'Error selecting media: $e');
+      AppHelpers.showSnackBar(context, 'Error selecting media: $e');
     }
   }
 
@@ -139,7 +139,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
 
   Future<void> _createPost() async {
     if (_mediaFile == null) {
-      showSnackBar(context, 'Please select an image or video');
+      AppHelpers.showSnackBar(context, 'Please select an image or video');
       return;
     }
 
@@ -178,11 +178,11 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
       if (!mounted) return;
 
       // Show success message and pop screen
-      showSnackBar(context, 'Post created successfully!');
+      AppHelpers.showSnackBar(context, 'Post created successfully!');
       Navigator.pop(context);
     } catch (e) {
       if (mounted) {
-        showSnackBar(context, 'Error creating post: ${e.toString()}');
+        AppHelpers.showSnackBar(context, 'Error creating post: ${e.toString()}');
       }
     } finally {
       if (mounted) {

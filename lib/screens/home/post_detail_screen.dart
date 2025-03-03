@@ -84,7 +84,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
       }
     } catch (e) {
       if (mounted) {
-        showSnackBar(context, 'Error loading data: ${e.toString()}');
+        AppHelpers.showSnackBar(context, 'Error loading data: ${e.toString()}');
       }
     } finally {
       if (mounted) {
@@ -128,7 +128,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
       widget.onPostUpdated?.call();
     } catch (e) {
       if (mounted) {
-        showSnackBar(context, 'Error updating like: ${e.toString()}');
+        AppHelpers.showSnackBar(context, 'Error updating like: ${e.toString()}');
       }
     }
   }
@@ -143,11 +143,11 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
       if (!mounted) return;
 
       // Show success message and pop screen
-      showSnackBar(context, 'Post deleted successfully!');
+      AppHelpers.showSnackBar(context, 'Post deleted successfully!');
       Navigator.pop(context);
     } catch (e) {
       if (mounted) {
-        showSnackBar(context, 'Error deleting post: ${e.toString()}');
+        AppHelpers.showSnackBar(context, 'Error deleting post: ${e.toString()}');
       }
     }
   }

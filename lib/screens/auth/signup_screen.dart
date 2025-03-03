@@ -43,7 +43,7 @@ class _SignupScreenState extends State<SignupScreen> {
     if (_emailController.text.isEmpty ||
         _passwordController.text.isEmpty ||
         _usernameController.text.isEmpty) {
-      showSnackBar(context, 'Please fill all required fields');
+      AppHelpers.showSnackBar(context, 'Please fill all required fields');
       return;
     }
 
@@ -75,7 +75,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
       if (!mounted) return;
 
-      showSnackBar(
+      AppHelpers.showSnackBar(
         context,
         'Account created! Please check your email for verification.',
       );
@@ -87,7 +87,7 @@ class _SignupScreenState extends State<SignupScreen> {
         ),
       );
     } catch (e) {
-      showSnackBar(context, e.toString());
+      AppHelpers.showSnackBar(context, e.toString());
     } finally {
       if (mounted) {
         setState(() {

@@ -621,7 +621,7 @@ class _UserManagementState extends State<UserManagement> with SingleTickerProvid
 
     try {
       // Create match between users
-      await _matchService.adminMatchUsers(
+      await _matchService.createMatch(
         _selectedUser1!.uid,
         _selectedUser2!.uid,
       );

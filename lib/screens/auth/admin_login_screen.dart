@@ -26,13 +26,13 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
     if (_emailController.text.isEmpty ||
         _passwordController.text.isEmpty ||
         _passkeyController.text.isEmpty) {
-      showSnackBar(context, 'Please fill all fields');
+      AppHelpers.showSnackBar(context, 'Please fill all fields');
       return;
     }
 
     // Verify admin passkey
     if (_passkeyController.text != _adminPasskey) {
-      showSnackBar(context, 'Invalid admin passkey');
+      AppHelpers.showSnackBar(context, 'Invalid admin passkey');
       return;
     }
 
@@ -66,7 +66,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
         MaterialPageRoute(builder: (context) => const AdminDashboard()),
       );
     } catch (e) {
-      showSnackBar(context, e.toString());
+      AppHelpers.showSnackBar(context, e.toString());
     } finally {
       if (mounted) {
         setState(() {

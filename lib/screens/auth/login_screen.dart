@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _login() async {
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
-      showSnackBar(context, 'Please fill all fields');
+      AppHelpers.showSnackBar(context, 'Please fill all fields');
       return;
     }
 
@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
         MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
     } catch (e) {
-      showSnackBar(context, e.toString());
+      AppHelpers.showSnackBar(context, e.toString());
     } finally {
       if (mounted) {
         setState(() {

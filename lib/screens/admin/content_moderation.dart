@@ -42,17 +42,17 @@ class _ContentModerationState extends State<ContentModeration> with SingleTicker
     try {
       if (action == 'delete') {
         await _firestore.collection('posts').doc(postId).delete();
-        showSnackBar(context, 'Post deleted successfully');
+        AppHelpers.showSnackBar(context, 'Post deleted successfully');
       } else if (action == 'approve') {
         await _firestore.collection('posts').doc(postId).update({
           'isReported': false,
           'reviewedBy': _authService.currentUser!.uid,
           'reviewedAt': FieldValue.serverTimestamp(),
         });
-        showSnackBar(context, 'Post approved');
+        AppHelpers.showSnackBar(context, 'Post approved');
       }
     } catch (e) {
-      showSnackBar(context, 'Error: $e');
+      AppHelpers.showSnackBar(context, 'Error: $e');
     } finally {
       setState(() {
         _isLoading = false;
@@ -78,7 +78,7 @@ class _ContentModerationState extends State<ContentModeration> with SingleTicker
           'resolvedAt': FieldValue.serverTimestamp(),
         });
 
-        showSnackBar(context, 'Content deleted and report resolved');
+        AppHelpers.showSnackBar(context, 'Content deleted and report resolved');
       } else if (action == 'dismiss') {
         await _firestore.collection('reports').doc(reportId).update({
           'status': 'resolved',
@@ -87,10 +87,10 @@ class _ContentModerationState extends State<ContentModeration> with SingleTicker
           'resolvedAt': FieldValue.serverTimestamp(),
         });
 
-        showSnackBar(context, 'Report dismissed');
+        AppHelpers.showSnackBar(context, 'Report dismissed');
       }
     } catch (e) {
-      showSnackBar(context, 'Error: $e');
+      AppHelpers.showSnackBar(context, 'Error: $e');
     } finally {
       setState(() {
         _isLoading = false;

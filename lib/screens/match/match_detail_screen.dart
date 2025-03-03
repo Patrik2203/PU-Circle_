@@ -75,7 +75,7 @@ class _MatchDetailScreenState extends State<MatchDetailScreen> {
         context,
         MaterialPageRoute(
           builder: (context) => ChatScreen(
-            chatRoomId: _chatRoomId!,
+            chatId: _chatRoomId!,
             otherUser: widget.matchedUser,
           ),
         ),
